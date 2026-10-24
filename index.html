@@ -220,27 +220,27 @@
     background:linear-gradient(180deg,#eba4bb,#d07f9d);box-shadow:0 7px 13px #0003,inset 0 4px 8px rgba(255,255,255,.3);}
   .chair .arm{position:absolute;top:50%;transform:translateY(-50%);width:15px;height:62px;border-radius:9px;z-index:4;background:linear-gradient(180deg,#d890a8,#c67b95);box-shadow:0 5px 9px #0003;}
   .chair .arm.l{left:-1px;} .chair .arm.r{right:-1px;}
-  .dt-imac{position:absolute;top:-7%;left:-3%;width:32%;height:33%;background:linear-gradient(180deg,#d3d7dc,#bcc2c8);border-radius:10px;transform:rotate(-5deg);box-shadow:0 10px 18px #00000033;}
-  .dt-key{position:absolute;top:3%;left:29%;width:33%;height:13%;background:#f4f5f7;border-radius:6px;box-shadow:0 6px 10px #00000022;
+  .dt-imac{z-index:4;position:absolute;top:-7%;left:-3%;width:32%;height:33%;background:linear-gradient(180deg,#d3d7dc,#bcc2c8);border-radius:10px;transform:rotate(-5deg);box-shadow:0 10px 18px #00000033;}
+  .dt-key{z-index:4;position:absolute;top:3%;left:29%;width:33%;height:13%;background:#f4f5f7;border-radius:6px;box-shadow:0 6px 10px #00000022;
     background-image:repeating-linear-gradient(90deg,#0000 0 6.5%,#00000010 6.5% 7.5%),repeating-linear-gradient(#0000 0 30%,#00000010 30% 34%);}
-  .dt-mouse{position:absolute;top:17%;left:16%;width:42px;height:60px;background:#fafafa;border-radius:42%;box-shadow:0 6px 10px #00000022;transform:rotate(-8deg);}
+  .dt-mouse{z-index:4;position:absolute;top:17%;left:16%;width:42px;height:60px;background:#fafafa;border-radius:42%;box-shadow:0 6px 10px #00000022;transform:rotate(-8deg);}
   /* real top-down desk items (no emoji) */
-  .dt-plant{position:absolute;top:-2%;left:58%;width:54px;height:54px;}
+  .dt-plant{z-index:4;position:absolute;top:-2%;left:58%;width:54px;height:54px;}
   .dt-plant .pot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:9px;background:linear-gradient(180deg,#d49a66,#b87a44);box-shadow:0 4px 8px #00000033;}
   .dt-plant .lv{position:absolute;left:calc(50% - 6px);top:calc(50% - 23px);width:12px;height:23px;border-radius:50%;background:radial-gradient(circle at 50% 25%,#82cc5a,#4f9d3a);transform-origin:50% 100%;}
-  .dt-coffee{position:absolute;top:-1%;left:73%;width:42px;height:42px;}
+  .dt-coffee{z-index:4;position:absolute;top:-1%;left:73%;width:42px;height:42px;}
   .dt-coffee .cup{position:absolute;inset:0;border-radius:50%;background:#fff;box-shadow:0 5px 9px #00000033;}
   .dt-coffee .brew{position:absolute;inset:7px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#8a5a32,#5a3a1e);}
   .dt-coffee .hndl{position:absolute;right:-8px;top:50%;transform:translateY(-50%);width:12px;height:18px;border:3px solid #fff;border-left:0;border-radius:0 10px 10px 0;}
-  .dt-glasses{position:absolute;top:16%;left:59%;width:58px;height:24px;}
+  .dt-glasses{z-index:4;position:absolute;top:16%;left:59%;width:58px;height:24px;}
   .dt-glasses .lens{position:absolute;top:0;width:22px;height:22px;border:3px solid #2a2a2e;border-radius:8px;background:rgba(170,205,215,.3);}
   .dt-glasses .lens.l{left:0;} .dt-glasses .lens.r{right:0;}
   .dt-glasses .bridge{position:absolute;top:9px;left:22px;width:14px;height:3px;background:#2a2a2e;border-radius:2px;}
   .dt-glasses .temple{position:absolute;top:5px;width:8px;height:3px;background:#2a2a2e;}
   .dt-glasses .temple.l{left:-7px;} .dt-glasses .temple.r{right:-7px;}
-  .dt-note{position:absolute;top:-3%;right:-3%;width:16%;height:27%;background:#fff;border-radius:4px;transform:rotate(7deg);box-shadow:0 6px 12px #00000022;}
+  .dt-note{z-index:4;position:absolute;top:-3%;right:-3%;width:16%;height:27%;background:#fff;border-radius:4px;transform:rotate(7deg);box-shadow:0 6px 12px #00000022;}
   .dt-note::before{content:"";position:absolute;left:-3px;top:8%;bottom:8%;width:7px;background:repeating-linear-gradient(#bbb 0 3px,transparent 3px 9px);}
-  .dt-phone{position:absolute;top:15%;right:9%;width:60px;height:112px;background:#0f0f12;border-radius:13px;border:3px solid #2a2a2a;
+  .dt-phone{z-index:5;position:absolute;top:15%;right:9%;width:60px;height:112px;background:#0f0f12;border-radius:13px;border:3px solid #2a2a2a;
     cursor:pointer;box-shadow:0 12px 20px #00000055;animation:phonepulse 1.3s ease-in-out infinite;}
   @keyframes phonepulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
   .tap-hint{position:absolute;bottom:9%;left:50%;transform:translateX(-50%);z-index:6;color:#5a4a6a;font-weight:800;
