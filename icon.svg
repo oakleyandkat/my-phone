@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-256 -256 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#ffd9ec"/>
+      <stop offset="55%" stop-color="#f7c3e3"/>
+      <stop offset="100%" stop-color="#c9a7f5"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="62%">
+      <stop offset="0%"  stop-color="#fff7fb" stop-opacity=".85"/>
+      <stop offset="100%" stop-color="#fff7fb" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="petal" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%"   stop-color="#ff9ec8"/>
+      <stop offset="45%"  stop-color="#ffd3e8"/>
+      <stop offset="100%" stop-color="#fffafd"/>
+    </linearGradient>
+    <linearGradient id="mid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#ffe9a8"/>
+      <stop offset="100%" stop-color="#ffc24d"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#b05c8e" flood-opacity=".28"/>
+    </filter>
+  </defs>
+
+  <rect x="-256" y="-256" width="512" height="512" fill="url(#bg)"/>
+  <rect x="-256" y="-256" width="512" height="512" fill="url(#glow)"/>
+
+  <!-- tiny drifting petals in the corners -->
+  <g fill="#ffffff" opacity=".5">
+    <ellipse cx="-168" cy="-150" rx="21" ry="13" transform="rotate(-28 -168 -150)"/>
+    <ellipse cx="170"  cy="-108" rx="16" ry="10" transform="rotate(34 170 -108)"/>
+    <ellipse cx="-150" cy="162"  rx="15" ry="9"  transform="rotate(18 -150 162)"/>
+    <ellipse cx="156"  cy="176"  rx="19" ry="12" transform="rotate(-40 156 176)"/>
+  </g>
+
+  <!-- blossom: five notched petals -->
+  <g filter="url(#soft)">
+    <g id="petals" fill="url(#petal)" stroke="#ff8fbe" stroke-width="3" stroke-opacity=".45" stroke-linejoin="round">
+      <path d="M0 10 C 44 -22, 62 -100, 34 -150 C 20 -175, 11 -168, 0 -140 C -11 -168, -20 -175, -34 -150 C -62 -100, -44 -22, 0 10 Z"/>
+      <path d="M0 10 C 44 -22, 62 -100, 34 -150 C 20 -175, 11 -168, 0 -140 C -11 -168, -20 -175, -34 -150 C -62 -100, -44 -22, 0 10 Z" transform="rotate(72)"/>
+      <path d="M0 10 C 44 -22, 62 -100, 34 -150 C 20 -175, 11 -168, 0 -140 C -11 -168, -20 -175, -34 -150 C -62 -100, -44 -22, 0 10 Z" transform="rotate(144)"/>
+      <path d="M0 10 C 44 -22, 62 -100, 34 -150 C 20 -175, 11 -168, 0 -140 C -11 -168, -20 -175, -34 -150 C -62 -100, -44 -22, 0 10 Z" transform="rotate(216)"/>
+      <path d="M0 10 C 44 -22, 62 -100, 34 -150 C 20 -175, 11 -168, 0 -140 C -11 -168, -20 -175, -34 -150 C -62 -100, -44 -22, 0 10 Z" transform="rotate(288)"/>
+    </g>
+  </g>
+
+  <!-- stamens + center -->
+  <g stroke="#ffb13d" stroke-width="6" stroke-linecap="round" opacity=".95">
+    <line x1="0" y1="0" x2="0"   y2="-46"/>
+    <line x1="0" y1="0" x2="38"  y2="-26"/>
+    <line x1="0" y1="0" x2="24"  y2="38"/>
+    <line x1="0" y1="0" x2="-24" y2="38"/>
+    <line x1="0" y1="0" x2="-38" y2="-26"/>
+  </g>
+  <g fill="#ffd166">
+    <circle cx="0" cy="-50" r="8"/><circle cx="42" cy="-28" r="8"/>
+    <circle cx="26" cy="42" r="8"/><circle cx="-26" cy="42" r="8"/><circle cx="-42" cy="-28" r="8"/>
+  </g>
+  <circle cx="0" cy="0" r="26" fill="url(#mid)" stroke="#ffffff" stroke-width="4" stroke-opacity=".7"/>
+</svg>
