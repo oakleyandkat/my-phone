@@ -34,6 +34,23 @@
   #phone{position:relative;width:390px;height:798px;max-width:100vw;max-height:96vh;
     background:#1c1426;border-radius:46px;box-shadow:0 30px 70px rgba(90,60,110,.5),0 0 0 10px #120c1a;
     overflow:hidden;}
+  /* the pocketed phone sits below the fold; without this it makes the page scroll */
+  html,body{height:100%;overflow:hidden;}
+  /* Morningside is the world you live in - it sits behind everything else. */
+  #msWorld{position:fixed;inset:0;z-index:1;background:#05070b;}
+  #msWorld iframe{width:100%;height:100%;border:0;display:block;}
+  /* the phone is a thing you take out of your pocket, not the whole screen */
+  #phone{z-index:300;transition:transform .42s cubic-bezier(.3,.9,.35,1);}
+  #phone.tucked{transform:translateY(118%);pointer-events:none;}
+  #pocketBtn{position:fixed;right:16px;bottom:18px;z-index:320;width:62px;height:62px;
+    border:0;border-radius:20px;font-size:27px;cursor:pointer;
+    background:linear-gradient(135deg,#ffd6ec,#cdb4f6);box-shadow:0 8px 20px rgba(0,0,0,.45);
+    transition:opacity .3s,transform .3s;}
+  #pocketBtn.gone{opacity:0;transform:translateY(22px) scale(.8);pointer-events:none;}
+  #putAway{position:fixed;right:16px;top:14px;z-index:340;width:42px;height:42px;
+    border:0;border-radius:50%;font-size:19px;font-weight:800;cursor:pointer;color:#5a4a6a;
+    background:#ffffffe8;box-shadow:0 6px 16px rgba(0,0,0,.35);transition:opacity .3s,transform .3s;}
+  #putAway.gone{opacity:0;transform:translateY(-14px) scale(.8);pointer-events:none;}
   #phone::after{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
     width:150px;height:26px;background:#120c1a;border-radius:0 0 18px 18px;z-index:60;}
   .screen{position:absolute;inset:0;display:none;flex-direction:column;overflow:hidden;}
@@ -80,6 +97,49 @@
   .app .ic{width:62px;height:62px;border-radius:18px;display:flex;align-items:center;justify-content:center;
     font-size:32px;box-shadow:0 8px 16px rgba(120,80,150,.28);transition:transform .12s;}
   .app:active .ic{transform:scale(.9);}
+  .app .ic svg,.dock .ic svg{width:34px;height:34px;display:block;}
+  .dock .ic svg{width:30px;height:30px;}
+  /* dark wallpapers need light lettering on the home screen */
+  #phone.wallDark .app .nm,#phone.wallDark .home-clock,#phone.wallDark .home-date{
+    color:#f2ecfa;text-shadow:0 1px 4px rgba(0,0,0,.55);}
+  #phone.wallDark .dock{background:rgba(20,16,30,.42);}
+  /* settings */
+  .setGroup{margin:14px 12px;}
+  .setLabel{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-soft);margin:0 4px 8px;}
+  .setCard{background:#fff;border-radius:18px;padding:12px;box-shadow:0 4px 12px rgba(120,80,150,.12);}
+  .wallGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .wallOpt{border:0;padding:0;background:none;cursor:pointer;}
+  .wallSwatch{height:84px;border-radius:14px;overflow:hidden;position:relative;
+    box-shadow:0 3px 9px rgba(120,80,150,.22);border:3px solid transparent;transition:border-color .15s;}
+  .wallOpt.on .wallSwatch{border-color:var(--pink-d);}
+  .wallSwatch svg{width:100%;height:100%;display:block;}
+  .wallName{font-size:10.5px;font-weight:700;color:var(--ink);margin-top:5px;}
+  .setRow{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;font-size:13px;}
+  .setRow+.setRow{border-top:1px solid #f0ebf6;}
+  .setRow b{font-weight:700;}
+  .setRow span{color:var(--ink-soft);}
+  /* notes */
+  .noteAdd{width:calc(100% - 24px);margin:12px;padding:12px;border:0;border-radius:16px;cursor:pointer;
+    font:inherit;font-size:13px;font-weight:800;color:#fff;background:linear-gradient(135deg,#ff9ec7,#c9a7ff);
+    box-shadow:0 6px 14px rgba(190,120,190,.35);}
+  .note{margin:0 12px 12px;background:#fff;border-radius:16px;padding:10px;
+    box-shadow:0 4px 12px rgba(120,80,150,.12);}
+  .note textarea{width:100%;border:0;outline:none;resize:none;font:inherit;font-size:13px;
+    line-height:1.5;color:var(--ink);background:none;min-height:66px;}
+  .noteDel{border:0;background:none;color:var(--ink-soft);font:inherit;font-size:11px;
+    font-weight:700;cursor:pointer;padding:2px 4px;}
+  .noteEmpty{text-align:center;color:var(--ink-soft);font-size:12.5px;padding:26px 20px;}
+  /* calculator */
+  .calcOut{margin:14px 14px 10px;padding:16px 18px;border-radius:18px;background:#2a2335;color:#fff;
+    text-align:right;font-size:34px;font-weight:300;letter-spacing:.02em;overflow:hidden;
+    text-overflow:ellipsis;white-space:nowrap;}
+  .calcPad{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:0 14px 14px;}
+  .calcPad button{border:0;border-radius:50%;aspect-ratio:1;font:inherit;font-size:20px;font-weight:600;
+    cursor:pointer;background:#fff;color:var(--ink);box-shadow:0 3px 8px rgba(120,80,150,.16);}
+  .calcPad button.op{background:linear-gradient(135deg,#ffb8d9,#c9a7ff);color:#fff;}
+  .calcPad button.fn{background:#ece6f4;color:var(--ink-soft);}
+  .calcPad button:active{transform:scale(.93);}
   .app .nm{font-size:11.5px;font-weight:700;color:#5a4a6a;}
   .dock{margin-top:auto;margin-bottom:16px;margin-inline:16px;background:rgba(255,255,255,.4);
     border-radius:28px;padding:12px;display:flex;justify-content:space-around;backdrop-filter:blur(6px);}
@@ -324,6 +384,10 @@
 <body>
 
 <!-- FULL-SCREEN MORNING (before the phone) -->
+<!-- Morningside: where you actually live -->
+<div id="msWorld"><iframe id="msFrame" title="Morningside"
+  allow="fullscreen; autoplay"></iframe></div>
+
 <div id="world">
   <div class="wscene on" id="wWake">
     <div class="bedroom">
@@ -450,49 +514,63 @@
 
   <!-- MORNING -->
   <div class="screen appscreen" id="morningApp">
-    <div class="appbar">👗 Closet <button class="home-btn" data-home>⌂</button></div>
+    <div class="appbar">Closet <button class="home-btn" data-home>⌂</button></div>
     <div class="appbody" id="morningBody"></div>
   </div>
 
   <!-- CAR -->
   <div class="screen appscreen" id="carApp">
-    <div class="appbar">🚗 Car <button class="home-btn" data-home>⌂</button></div>
+    <div class="appbar">Car <button class="home-btn" data-home>⌂</button></div>
     <div class="appbody" id="carBody"></div>
   </div>
 
   <!-- MUSIC -->
   <div class="screen" id="musicApp">
-    <div class="appbar">🎵 Music <button class="home-btn" data-home>⌂</button></div>
+    <div class="appbar">Music <button class="home-btn" data-home>⌂</button></div>
     <div class="np" id="musicBody"></div>
   </div>
 
   <!-- MY DAY -->
   <div class="screen appscreen" id="mydayApp">
-    <div class="appbar">☀️ My Day <button class="home-btn" data-home>⌂</button></div>
+    <div class="appbar">My Day <button class="home-btn" data-home>⌂</button></div>
     <div class="appbody"><iframe class="appframe" id="mydayFrame" title="My Day"></iframe></div>
   </div>
 
 
   <!-- INBOX -->
   <div class="screen appscreen" id="inboxApp">
-    <div class="appbar">📬 Inbox <button class="home-btn" data-home>⌂</button></div>
+    <div class="appbar">Inbox <button class="home-btn" data-home>⌂</button></div>
     <div class="appbody" id="inboxBody"></div>
   </div>
 
   <!-- WEATHER -->
   <div class="screen appscreen" id="weatherApp">
-    <div class="appbar">🌤️ Weather <button class="home-btn" data-home>⌂</button></div>
+    <div class="appbar">Weather <button class="home-btn" data-home>⌂</button></div>
     <div class="appbody" id="weatherBody"></div>
   </div>
 
-  <!-- MORNINGSIDE -->
-  <div class="screen appscreen" id="morningsideApp">
-    <div class="appbar">🌄 Morningside <button class="home-btn" data-home>⌂</button></div>
-    <div class="appbody"><iframe class="appframe" id="morningsideFrame" title="Morningside"
-      allow="fullscreen; pointer-lock; autoplay"></iframe></div>
+  <!-- NOTES -->
+  <div class="screen appscreen" id="notesApp">
+    <div class="appbar">Notes <button class="home-btn" data-home>⌂</button></div>
+    <div class="appbody" id="notesBody"></div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="screen appscreen" id="calcApp">
+    <div class="appbar">Calculator <button class="home-btn" data-home>⌂</button></div>
+    <div class="appbody" id="calcBody"></div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="screen appscreen" id="settingsApp">
+    <div class="appbar">Settings <button class="home-btn" data-home>⌂</button></div>
+    <div class="appbody" id="settingsBody"></div>
   </div>
 
 </div>
+
+<button id="pocketBtn" title="Take out your phone">📱</button>
+<button id="putAway" title="Put your phone away">⌄</button>
 
 <script id="threeInline">/**
  * @license
@@ -505,7 +583,13 @@
 /* ============ full-screen morning intro ============ */
 function wscene(id){document.querySelectorAll('.wscene').forEach(s=>s.classList.toggle('on',s.id===id));}
 function initWorld(){
+  const dp=document.getElementById('deskPhone');if(dp)dp.onclick=pickUpPhone;
+}
+/* the old morning routine - no longer how the day starts, but still here */
+function startIntro(){
   MORN.outfit={top:null,bottom:null,shoes:null};
+  wscene('wWake');
+  document.querySelectorAll('#wWake .eyelid').forEach(e=>e.classList.remove('open'));
   const d=new Date();const tt=(d.getHours()%12||12)+':'+String(d.getMinutes()).padStart(2,'0');
   const wc=document.getElementById('wClock');if(wc)wc.textContent=tt;
   setTimeout(()=>{
@@ -517,7 +601,11 @@ function initWorld(){
         document.getElementById('wGetup').onclick=()=>{wscene('wCloset');renderWorldCloset();};}
     },1500);
   },450);
-  const dp=document.getElementById('deskPhone');if(dp)dp.onclick=pickUpPhone;
+}
+function replayIntro(){
+  closePhone();
+  document.getElementById('world').classList.remove('hide');
+  startIntro();
 }
 function renderWorldCloset(){renderClosetInto(document.getElementById('wClosetBody'),walkToDesk);}
 function walkToDesk(){
@@ -530,7 +618,8 @@ function pickUpPhone(){
   try{ensureCtx();playNote(660);setTimeout(()=>playNote(880),110);}catch(e){}
   const w=document.getElementById('world');w.classList.add('lift');
   updateHomeAvatar();
-  setTimeout(()=>{w.classList.add('hide');const ph=document.getElementById('phone');ph.classList.add('reveal');},600);
+  setTimeout(()=>{w.classList.add('hide');w.classList.remove('lift');
+    const ph=document.getElementById('phone');ph.classList.add('reveal');openPhone();},600);
 }
 
 /* ============ clock ============ */
@@ -566,22 +655,56 @@ function press(n){if(entered.length>=4)return;entered+=n;drawDots();
 drawDots();
 
 /* ============ apps ============ */
+/* App icons are drawn, not typed - emoji look like somebody else's art.
+   Each is a 40x40 line drawing that sits on the tile's gradient. */
+function ico(body,extra){
+  return '<svg viewBox="0 0 40 40" fill="none" stroke="#fff" stroke-width="2.4" '+
+         'stroke-linecap="round" stroke-linejoin="round" '+(extra||'')+'>'+body+'</svg>';
+}
+const ICONS={
+  closet: ico('<path d="M20 9.5a3 3 0 1 0-2.6 3"/><path d="M20 12.5v2.6"/>'+
+              '<path d="M20 15.1 8.6 24.4a2 2 0 0 0 1.3 3.6h20.2a2 2 0 0 0 1.3-3.6L20 15.1Z"/>'),
+  car:    ico('<path d="M7 25v3.5M33 25v3.5"/>'+
+              '<path d="M5.5 25v-5.2l3-7A2 2 0 0 1 10.4 11h19.2a2 2 0 0 1 1.9 1.3l3 7V25a1 1 0 0 1-1 1h-27a1 1 0 0 1-1-1Z"/>'+
+              '<path d="M7.6 19.3h24.8"/><circle cx="12" cy="22.6" r="1.5" fill="#fff" stroke="none"/>'+
+              '<circle cx="28" cy="22.6" r="1.5" fill="#fff" stroke="none"/>'),
+  music:  ico('<path d="M16 26.5V11.2l14-2.7v15.3"/>'+
+              '<circle cx="12.6" cy="27" r="3.6"/><circle cx="26.6" cy="24.2" r="3.6"/>'),
+  myday:  ico('<circle cx="20" cy="20" r="6.4"/>'+
+              '<path d="M20 5.5v3.4M20 31.1v3.4M5.5 20h3.4M31.1 20h3.4'+
+              'M9.7 9.7l2.4 2.4M27.9 27.9l2.4 2.4M30.3 9.7l-2.4 2.4M12.1 27.9l-2.4 2.4"/>'),
+  inbox:  ico('<rect x="5.5" y="9.5" width="29" height="21" rx="3"/><path d="m6.5 12 13.5 10 13.5-10"/>'),
+  wake:   ico('<path d="M5.5 28.5v-17M5.5 20h29v8.5M34.5 28.5v-4"/>'+
+              '<path d="M11 20v-4.5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2V20"/><circle cx="26" cy="16.5" r="3.2"/>'),
+  weather:ico('<circle cx="14.5" cy="14" r="4.4"/><path d="M14.5 5.6v2.2M6.1 14h2.2M8.6 8.1l1.6 1.6M20.4 8.1l-1.6 1.6"/>'+
+              '<path d="M15.6 30.5a6 6 0 0 1 .6-12 7.5 7.5 0 0 1 14.1 2.2 5 5 0 0 1-.8 9.8Z"/>'),
+  notes:  ico('<path d="M9.5 5.5h14L30.5 13v21a1.5 1.5 0 0 1-1.5 1.5H9.5A1.5 1.5 0 0 1 8 34V7a1.5 1.5 0 0 1 1.5-1.5Z"/>'+
+              '<path d="M23 5.8V13h7.2M13.5 20h13M13.5 25h13M13.5 30h8"/>'),
+  calc:   ico('<rect x="8" y="5.5" width="24" height="29" rx="3"/><rect x="12.5" y="10" width="15" height="5.5" rx="1.5"/>'+
+              '<path d="M13.5 21h.02M20 21h.02M26.5 21h.02M13.5 26h.02M20 26h.02M26.5 26h.02M13.5 30.5h.02M20 30.5h.02M26.5 30.5h.02"/>',
+          'stroke-width="3.4"'),
+  settings:ico('<circle cx="20" cy="20" r="4.6"/>'+
+              '<path d="M31.4 24.2a2 2 0 0 0 .4 2.2l.1.1a2.4 2.4 0 1 1-3.4 3.4l-.1-.1a2 2 0 0 0-3.4 1.4v.4a2.4 2.4 0 1 1-4.8 0v-.2a2 2 0 0 0-1.3-1.8 2 2 0 0 0-2.2.4l-.1.1a2.4 2.4 0 1 1-3.4-3.4l.1-.1a2 2 0 0 0-1.4-3.4h-.4a2.4 2.4 0 1 1 0-4.8h.2a2 2 0 0 0 1.8-1.3 2 2 0 0 0-.4-2.2l-.1-.1a2.4 2.4 0 1 1 3.4-3.4l.1.1a2 2 0 0 0 2.2.4h.1a2 2 0 0 0 1.2-1.8v-.4a2.4 2.4 0 1 1 4.8 0v.2a2 2 0 0 0 1.2 1.8 2 2 0 0 0 2.2-.4l.1-.1a2.4 2.4 0 1 1 3.4 3.4l-.1.1a2 2 0 0 0-.4 2.2v.1a2 2 0 0 0 1.8 1.2h.4a2.4 2.4 0 1 1 0 4.8h-.2a2 2 0 0 0-1.8 1.2Z"/>'),
+};
 const APPS=[
-  {id:'morningApp',ic:'👗',nm:'Closet',bg:'linear-gradient(135deg,#ffd9a8,#d8c4ec)',open:openMorning},
-  {id:'carApp',ic:'🚗',nm:'Car',bg:'linear-gradient(135deg,#8a9bd6,#5a6fae)',open:openCar},
-  {id:'musicApp',ic:'🎵',nm:'Music',bg:'linear-gradient(135deg,#ff9ec7,#c9a7ff)',open:openMusic},
-  {id:'mydayApp',ic:'☀️',nm:'My Day',bg:'linear-gradient(135deg,#ffe6a7,#ffd6ec)',open:()=>openFrame('mydayApp','mydayFrame','inbox-practice.html')},
-  {id:'inboxApp',ic:'📬',nm:'Inbox',bg:'linear-gradient(135deg,#b8efd9,#7dd3fc)',open:openInbox},
-  {id:'weatherApp',ic:'🌤️',nm:'Weather',bg:'linear-gradient(135deg,#bfe3ff,#d9c6f5)',open:openWeather},
-  {id:'morningsideApp',ic:'🌄',nm:'Morningside',bg:'linear-gradient(135deg,#ffd0a8,#a8c4f0)',open:()=>openFrame('morningsideApp','morningsideFrame','morningside.html')},
+  {id:'morningApp',ic:ICONS.closet,nm:'Closet',bg:'linear-gradient(135deg,#ffb98a,#d8a4ec)',open:openMorning},
+  {id:'carApp',ic:ICONS.car,nm:'Car',bg:'linear-gradient(135deg,#8a9bd6,#5a6fae)',open:openCar},
+  {id:'musicApp',ic:ICONS.music,nm:'Music',bg:'linear-gradient(135deg,#ff9ec7,#c9a7ff)',open:openMusic},
+  {id:'mydayApp',ic:ICONS.myday,nm:'My Day',bg:'linear-gradient(135deg,#ffc95e,#ff9ec7)',open:()=>openFrame('mydayApp','mydayFrame','inbox-practice.html')},
+  {id:'inboxApp',ic:ICONS.inbox,nm:'Inbox',bg:'linear-gradient(135deg,#5fd3aa,#3bb6e8)',open:openInbox},
+  {id:'wakeApp',ic:ICONS.wake,nm:'Wake Up',bg:'linear-gradient(135deg,#f0b86a,#b48fd8)',open:replayIntro},
+  {id:'weatherApp',ic:ICONS.weather,nm:'Weather',bg:'linear-gradient(135deg,#6fc0f0,#a98fe0)',open:openWeather},
+  {id:'notesApp',ic:ICONS.notes,nm:'Notes',bg:'linear-gradient(135deg,#ffd36a,#ffa68a)',open:openNotes},
+  {id:'calcApp',ic:ICONS.calc,nm:'Calculator',bg:'linear-gradient(135deg,#8f8aa8,#5f5a78)',open:openCalc},
+  {id:'settingsApp',ic:ICONS.settings,nm:'Settings',bg:'linear-gradient(135deg,#b8b0c8,#7a7292)',open:openSettings},
 ];
 const grid=document.getElementById('appgrid');
 APPS.forEach(a=>{const d=document.createElement('div');d.className='app';
   d.innerHTML=`<div class="ic" style="background:${a.bg}">${a.ic}</div><div class="nm">${a.nm}</div>`;
   d.onclick=a.open;grid.appendChild(d);});
 const dock=document.getElementById('dock');
-[['carApp','🚗',openCar],['musicApp','🎵',openMusic],['mydayApp','☀️',()=>openFrame('mydayApp','mydayFrame','inbox-practice.html')],['weatherApp','🌤️',openWeather]].forEach(a=>{
-  const d=document.createElement('div');d.className='ic';d.style.background='linear-gradient(135deg,#ffffffaa,#ffffff55)';d.textContent=a[1];d.onclick=a[2];dock.appendChild(d);});
+[['carApp',ICONS.car,openCar],['musicApp',ICONS.music,openMusic],['mydayApp',ICONS.myday,()=>openFrame('mydayApp','mydayFrame','inbox-practice.html')],['settingsApp',ICONS.settings,openSettings]].forEach(a=>{
+  const d=document.createElement('div');d.className='ic';d.style.background='linear-gradient(135deg,#c9a7ffcc,#ff9ec7cc)';d.innerHTML=a[1];d.onclick=a[2];dock.appendChild(d);});
 
 let framesLoaded={};
 function openFrame(screen,frameId,src){
@@ -1012,15 +1135,43 @@ function stopCar(){
 }
 
 /* cherry-blossom (sakura) home wallpaper */
-function sakuraFlower(cx,cy,s,rot){let pet='';for(let i=0;i<5;i++){pet+='<ellipse cx="0" cy="-7" rx="4.6" ry="7.4" transform="rotate('+(i*72+(rot||0))+')" fill="#ffc1da"/>';}
+/* ============ wallpapers ============
+   One drawing, six palettes. Each has a day set for the home screen and a
+   darker night set for the lock screen. */
+const WALLPAPERS=[
+  {id:'sakura', name:'Sakura',
+   day:{sky:['#ffe6f0','#ffd2e6','#e7d2f2'],bark:'#6e4329',glow:'#ffffff',petal:'#ffc1da',core:'#ff8fb5',dust:'#ffd9ea'},
+   night:{sky:['#3a2350','#5a2f55','#7a3a5e'],bark:'#caa4c0',glow:'#ffe9c2',petal:'#ffc1da',core:'#ff8fb5',dust:'#ffd9ea'}},
+  {id:'mint', name:'Mint',
+   day:{sky:['#e8fff6','#d2f6ea','#d8eefc'],bark:'#4a6b52',glow:'#ffffff',petal:'#bfeeda',core:'#6fcfa8',dust:'#d4f6e8'},
+   night:{sky:['#102e28','#1d4a42','#2a5f52'],bark:'#9ed8c4',glow:'#dffaf0',petal:'#bfeeda',core:'#6fcfa8',dust:'#d4f6e8'}},
+  {id:'peach', name:'Peach',
+   day:{sky:['#fff2e4','#ffdcc4','#ffd0d8'],bark:'#8a5230',glow:'#ffffff',petal:'#ffd2a8',core:'#ff9e6b',dust:'#ffe2c8'},
+   night:{sky:['#43200f','#6b3523','#8a4a2a'],bark:'#e0b48a',glow:'#ffe0b8',petal:'#ffd2a8',core:'#ff9e6b',dust:'#ffe2c8'}},
+  {id:'lavender', name:'Lavender',
+   day:{sky:['#f2eaff','#e0d2f8','#d8d8f8'],bark:'#5a4a7a',glow:'#ffffff',petal:'#d8c4f8',core:'#a98fe0',dust:'#e6dcfa'},
+   night:{sky:['#1f1634','#352552','#48356b'],bark:'#c4b0e0',glow:'#e8dcff',petal:'#d8c4f8',core:'#a98fe0',dust:'#e6dcfa'}},
+  {id:'ocean', name:'Ocean',
+   day:{sky:['#e4f5ff','#c4e8fa','#d2f0f0'],bark:'#2f5d6b',glow:'#ffffff',petal:'#aee0f2',core:'#6fbdd8',dust:'#d2eefa'},
+   night:{sky:['#0a2433','#143b52','#1d5068'],bark:'#9ecfe0',glow:'#d8f0ff',petal:'#aee0f2',core:'#6fbdd8',dust:'#d2eefa'}},
+  {id:'ink', name:'Midnight', dark:true,
+   day:{sky:['#2e2740','#201b2e','#14111d'],bark:'#6a5f80',glow:'#b0a2c8',petal:'#6e6388',core:'#9a8fb8',dust:'#8a7fa8'},
+   night:{sky:['#1b1626','#120f1a','#09070e'],bark:'#564d68',glow:'#8a7fa8',petal:'#5a5070',core:'#7f7598',dust:'#6e6488'}},
+];
+let wallId='sakura';
+try{ const saved=localStorage.getItem('myphone.wall'); if(saved) wallId=saved; }catch(e){}
+function currentWall(){ return WALLPAPERS.find(w=>w.id===wallId)||WALLPAPERS[0]; }
+
+function sakuraFlower(cx,cy,s,rot,pal){
+  pal=pal||currentWall().day;
+  let pet='';for(let i=0;i<5;i++){pet+='<ellipse cx="0" cy="-7" rx="4.6" ry="7.4" transform="rotate('+(i*72+(rot||0))+')" fill="'+pal.petal+'"/>';}
   let dots='';[0,72,144,216,288].forEach(a=>{dots+='<circle cx="0" cy="-3.6" r="0.8" fill="#ffe08a" transform="rotate('+a+')"/>';});
-  return '<g transform="translate('+cx+' '+cy+') scale('+s+')">'+pet+'<circle r="3.1" fill="#ff8fb5"/>'+dots+'</g>';}
-function buildWallpaper(elId,night){
+  return '<g transform="translate('+cx+' '+cy+') scale('+s+')">'+pet+'<circle r="3.1" fill="'+pal.core+'"/>'+dots+'</g>';}
+function buildWallpaper(elId,night,wall){
   const el=document.getElementById(elId);if(!el)return;
   const gid=elId+'Sky';
-  const sky=night?['#3a2350','#5a2f55','#7a3a5e']:['#ffe6f0','#ffd2e6','#e7d2f2'];
-  const bark=night?'#caa4c0':'#6e4329';
-  const glow=night?'#ffe9c2':'#fff';
+  const pal=(wall||currentWall())[night?'night':'day'];
+  const sky=pal.sky, bark=pal.bark, glow=pal.glow;
   let s='<svg viewBox="0 0 390 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">';
   s+='<defs><linearGradient id="'+gid+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+sky[0]+'"/><stop offset="0.5" stop-color="'+sky[1]+'"/><stop offset="1" stop-color="'+sky[2]+'"/></linearGradient></defs>';
   s+='<rect width="390" height="800" fill="url(#'+gid+')"/>';
@@ -1032,18 +1183,200 @@ function buildWallpaper(elId,night){
   // blossoms along branches
   const cluster=[[20,72,1],[70,86,1.2],[120,90,1],[175,66,1.3],[235,46,1],[260,18,0.9],[315,118,1.2],[360,108,1],
     [30,706,1.1],[110,694,1.3],[180,724,1],[255,742,1.2],[330,706,1]];
-  cluster.forEach(c=>{s+=sakuraFlower(c[0],c[1],c[2],Math.random()*40);});
+  cluster.forEach(c=>{s+=sakuraFlower(c[0],c[1],c[2],Math.random()*40,pal);});
   // a few scattered mid blossoms + falling petals
-  for(let i=0;i<7;i++){s+=sakuraFlower(40+Math.random()*310,180+Math.random()*420,0.7+Math.random()*0.4,Math.random()*72);}
+  for(let i=0;i<7;i++){s+=sakuraFlower(40+Math.random()*310,180+Math.random()*420,0.7+Math.random()*0.4,Math.random()*72,pal);}
   for(let i=0;i<16;i++){const x=Math.random()*390,y=120+Math.random()*560;s+='<ellipse cx="'+x+'" cy="'+y+'" rx="4" ry="6.5" transform="rotate('+(Math.random()*360)+' '+x+' '+y+')" fill="'+(night?'#ffd9ea':'#ffc9de')+'" opacity="0.85"/>';}
   s+='</svg>';
   el.innerHTML=s;
 }
-buildWallpaper('homeWall',false);
-buildWallpaper('lockWall',true);
+function applyWallpaper(){
+  buildWallpaper('homeWall',false);
+  buildWallpaper('lockWall',true);
+  document.getElementById('phone').classList.toggle('wallDark',!!currentWall().dark);
+}
+function setWallpaper(id){
+  wallId=id;
+  try{ localStorage.setItem('myphone.wall',id); }catch(e){}
+  applyWallpaper(); renderSettings();
+}
+applyWallpaper();
 
-/* start the day full-screen */
+/* ============ Settings ============ */
+function wallThumb(w){
+  const pal=w.day;
+  let g='<svg viewBox="0 0 60 120" preserveAspectRatio="xMidYMid slice">';
+  g+='<defs><linearGradient id="t'+w.id+'" x1="0" y1="0" x2="0" y2="1">'+
+     '<stop offset="0" stop-color="'+pal.sky[0]+'"/><stop offset="0.5" stop-color="'+pal.sky[1]+'"/>'+
+     '<stop offset="1" stop-color="'+pal.sky[2]+'"/></linearGradient></defs>';
+  g+='<rect width="60" height="120" fill="url(#t'+w.id+')"/>';
+  g+='<circle cx="46" cy="20" r="13" fill="'+pal.glow+'" opacity="0.55"/>';
+  g+='<path d="M-4 16 C 18 26, 36 10, 64 28" stroke="'+pal.bark+'" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
+  [[8,17],[24,22],[40,17],[52,26]].forEach(c=>{ g+=sakuraFlower(c[0],c[1],0.5,20,pal); });
+  [[14,62],[42,82],[26,100]].forEach(c=>{ g+=sakuraFlower(c[0],c[1],0.42,40,pal); });
+  return g+'</svg>';
+}
+function renderSettings(){
+  const b=document.getElementById('settingsBody'); if(!b) return;
+  let h='<div class="setGroup"><div class="setLabel">Wallpaper</div><div class="wallGrid">';
+  WALLPAPERS.forEach(w=>{
+    h+='<button class="wallOpt'+(w.id===wallId?' on':'')+'" data-wall="'+w.id+'">'+
+       '<div class="wallSwatch">'+wallThumb(w)+'</div>'+
+       '<div class="wallName">'+w.name+'</div></button>';
+  });
+  h+='</div></div>';
+  h+='<div class="setGroup"><div class="setLabel">About this phone</div><div class="setCard">'+
+     '<div class="setRow"><b>Name</b><span>My Phone</span></div>'+
+     '<div class="setRow"><b>Passcode</b><span>1234</span></div>'+
+     '<div class="setRow"><b>Apps</b><span>'+APPS.length+' installed</span></div>'+
+     '<div class="setRow"><b>Wallpapers</b><span>'+WALLPAPERS.length+'</span></div>'+
+     '<div class="setRow"><b>You live in</b><span>Morningside</span></div>'+
+     '</div></div>';
+  h+='<div class="setGroup"><div class="setLabel">Tip</div><div class="setCard">'+
+     '<div style="font-size:12.5px;line-height:1.6;color:var(--ink-soft)">'+
+     'Press the \u2304 button, or the P key, to put the phone back in your pocket '+
+     'and carry on walking around Morningside.</div></div></div>';
+  b.innerHTML=h;
+  b.querySelectorAll('[data-wall]').forEach(el=>{ el.onclick=()=>setWallpaper(el.dataset.wall); });
+}
+function openSettings(){ renderSettings(); show('settingsApp'); }
+
+/* ============ Notes ============ */
+let NOTES=[];
+try{ const raw=localStorage.getItem('myphone.notes'); if(raw) NOTES=JSON.parse(raw)||[]; }catch(e){ NOTES=[]; }
+function saveNotes(){ try{ localStorage.setItem('myphone.notes',JSON.stringify(NOTES)); }catch(e){} }
+function renderNotes(){
+  const b=document.getElementById('notesBody'); if(!b) return;
+  let h='<button class="noteAdd" id="newNote">+ New note</button>';
+  if(!NOTES.length) h+='<div class="noteEmpty">Nothing written down yet.<br>Shopping lists, ideas, whatever.</div>';
+  NOTES.forEach((n,i)=>{
+    h+='<div class="note"><textarea data-i="'+i+'" placeholder="Start typing\u2026">'+
+       String(n).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))+
+       '</textarea><div style="text-align:right"><button class="noteDel" data-del="'+i+'">Delete</button></div></div>';
+  });
+  b.innerHTML=h;
+  b.querySelector('#newNote').onclick=()=>{ NOTES.unshift(''); saveNotes(); renderNotes();
+    const t=b.querySelector('textarea'); if(t) t.focus(); };
+  b.querySelectorAll('textarea').forEach(t=>{
+    t.oninput=()=>{ NOTES[+t.dataset.i]=t.value; saveNotes(); };
+  });
+  b.querySelectorAll('[data-del]').forEach(x=>{
+    x.onclick=()=>{ NOTES.splice(+x.dataset.del,1); saveNotes(); renderNotes(); };
+  });
+}
+function openNotes(){ renderNotes(); show('notesApp'); }
+
+/* ============ Calculator ============ */
+const CALC={cur:'0',acc:null,op:null,fresh:true};
+function calcShow(){ const o=document.getElementById('calcOut'); if(o) o.textContent=CALC.cur; }
+function calcApply(){
+  const a=parseFloat(CALC.acc), b=parseFloat(CALC.cur);
+  let r=b;
+  if(CALC.op==='+') r=a+b;
+  else if(CALC.op==='-') r=a-b;
+  else if(CALC.op==='x') r=a*b;
+  else if(CALC.op==='/') r=b===0?NaN:a/b;
+  if(!isFinite(r)) return 'Nope';
+  return String(Math.round(r*1e10)/1e10);
+}
+function calcKey(k){
+  if(k==='C'){ CALC.cur='0'; CALC.acc=null; CALC.op=null; CALC.fresh=true; }
+  else if(k==='+/-'){ CALC.cur = CALC.cur.startsWith('-')? CALC.cur.slice(1) : (CALC.cur==='0'?'0':'-'+CALC.cur); }
+  else if(k==='%'){ CALC.cur=String(parseFloat(CALC.cur)/100); }
+  else if('0123456789'.includes(k)){
+    CALC.cur = (CALC.fresh||CALC.cur==='0') ? k : CALC.cur+k; CALC.fresh=false;
+  }
+  else if(k==='.'){ if(CALC.fresh){ CALC.cur='0.'; CALC.fresh=false; } else if(!CALC.cur.includes('.')) CALC.cur+='.'; }
+  else if('+-x/'.includes(k)){
+    if(CALC.op!==null && !CALC.fresh) CALC.cur=calcApply();
+    CALC.acc=CALC.cur; CALC.op=k; CALC.fresh=true;
+  }
+  else if(k==='='){
+    if(CALC.op!==null){ CALC.cur=calcApply(); CALC.acc=null; CALC.op=null; CALC.fresh=true; }
+  }
+  calcShow();
+}
+function openCalc(){
+  const b=document.getElementById('calcBody');
+  if(b && !b.dataset.built){
+    const keys=[['C','fn'],['+/-','fn'],['%','fn'],['/','op'],
+                ['7',''],['8',''],['9',''],['x','op'],
+                ['4',''],['5',''],['6',''],['-','op'],
+                ['1',''],['2',''],['3',''],['+','op'],
+                ['0',''],['.',''],['=','op']];
+    let h='<div class="calcOut" id="calcOut">0</div><div class="calcPad">';
+    keys.forEach(([k,c],i)=>{
+      const wide = (k==='0') ? 'grid-column:span 2;aspect-ratio:auto;border-radius:999px;' : '';
+      h+='<button class="'+c+'" style="'+wide+'" data-k="'+k.replace('"','')+'">'+(k==='x'?'\u00d7':k==='/'?'\u00f7':k)+'</button>';
+    });
+    h+='</div>';
+    b.innerHTML=h; b.dataset.built='1';
+    b.querySelectorAll('[data-k]').forEach(btn=>{ btn.onclick=()=>calcKey(btn.dataset.k); });
+  }
+  calcShow(); show('calcApp');
+}
+
+/* ============ you live in Morningside; the phone is in your pocket ============
+   Morningside runs fullscreen behind everything. The phone slides up over it
+   when you take it out, and Morningside pauses while you are looking at it. */
+const MS_HOOK = '<scr'+'ipt>(function(){'+
+  'var raf=window.requestAnimationFrame.bind(window),q=[],paused=false,last=null;'+
+  'window.requestAnimationFrame=function(cb){last=cb;if(paused){q.push(cb);return 0;}return raf(cb);};'+
+  'addEventListener("message",function(e){var d=e.data||{};'+
+    'if(d.type==="msPause")paused=true;'+
+    'if(d.type==="msResume"&&paused){paused=false;var w=q;q=[];'+
+      /* if the pause landed between frames the queue is empty and the loop is
+         stalled, so restart it from the last callback we saw */
+      'if(!w.length&&last)w=[last];'+
+      'w.forEach(function(c){raf(c);});}});'+
+  'addEventListener("keydown",function(e){if(e.code==="KeyP")parent.postMessage({type:"openPhone"},"*");});'+
+'})();<\/scr'+'ipt>';
+
+let msLoaded=false;
+function startMorningside(){
+  if(msLoaded) return;
+  msLoaded=true;
+  const fr=document.getElementById('msFrame');
+  let doc=getSrcDoc('morningside.html');
+  doc=doc.replace('</bo'+'dy>', MS_HOOK+'</bo'+'dy>');
+  fr.removeAttribute('src'); fr.srcdoc=doc;
+}
+function msSend(msg){
+  const fr=document.getElementById('msFrame');
+  try{ fr.contentWindow.postMessage(msg,'*'); }catch(e){}
+}
+function openPhone(){
+  const ph=document.getElementById('phone');
+  if(!ph.classList.contains('tucked')) return;
+  ph.classList.remove('tucked');
+  document.getElementById('pocketBtn').classList.add('gone');
+  document.getElementById('putAway').classList.remove('gone');
+  /* hand the mouse and keyboard back, and stop rendering the world */
+  const fr=document.getElementById('msFrame');
+  try{ if(fr.contentDocument&&fr.contentDocument.pointerLockElement) fr.contentDocument.exitPointerLock(); }catch(e){}
+  msSend({type:'msPause'});
+  window.focus();
+}
+function closePhone(){
+  document.getElementById('phone').classList.add('tucked');
+  document.getElementById('pocketBtn').classList.remove('gone');
+  document.getElementById('putAway').classList.add('gone');
+  msSend({type:'msResume'});
+  const fr=document.getElementById('msFrame');
+  try{ fr.contentWindow.focus(); }catch(e){}
+}
+
 initWorld();
+document.getElementById('world').classList.add('hide');
+document.getElementById('phone').classList.add('tucked');
+document.getElementById('putAway').classList.add('gone');
+document.getElementById('pocketBtn').onclick=openPhone;
+document.getElementById('putAway').onclick=closePhone;
+window.addEventListener('message',function(e){
+  const d=e.data||{}; if(d.type==='openPhone') openPhone();
+});
+if(document.readyState==='complete') startMorningside();
+else window.addEventListener('load', startMorningside);
 </script>
 
 <!-- ===== bundled app content ===== -->

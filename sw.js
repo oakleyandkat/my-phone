@@ -1,6 +1,6 @@
 // Service worker: keeps My Phone working with no signal.
 // Bump CACHE whenever index.html changes so phones pick up the new version.
-const CACHE = 'my-phone-v3';
+const CACHE = 'my-phone-v5';
 const SHELL = [
   './',
   './index.html',
